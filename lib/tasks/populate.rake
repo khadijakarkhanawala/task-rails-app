@@ -4,7 +4,9 @@ namespace :db do
     require 'faker'
 
     Rake::Task['db:reset'].invoke
+    genres_arr = ["Science Fiction", "Satire", "Drama", "Action and Adventure", "Romance", "Mystery", "Horror", "Self Help", "Fantasy"]
     
+
     # Create 15 posts
     100.times do
       Author.create do |a|
@@ -15,12 +17,13 @@ namespace :db do
         a.profile_pic = File.open(File.join(Rails.root, "public", "missing-image.png"))
 
         5.times do
-          Book.create do |a|
-            field :name, type: String
-            field :short_description, type: String
-            field :long_description, type: String
-            field :publication_date, type: Time
-            field :genre, type: Array
+          Book.create do |b|
+            b.author_id = a.id
+            b.name = Faker::Book.title
+            b.short_description = Faker::Lorem.sentence(5, true)
+            b.long_description = Faker::Lorem.paragraph(2, true)
+            b.publication_date = Faker::Time.between(DateTime.now - 1, DateTime.now)
+            b.genre = genres_arr.sample(rand(3))
           end
         end
       end
