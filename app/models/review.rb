@@ -5,7 +5,7 @@ class Review
   ##Fields
   field :book_id, type: Integer
   field :reviewer_name, type: String
-  field :rating, type: Integer
+  field :rating, type: Integer, default: 0
   field :title, type: String
   field :description, type: String
 

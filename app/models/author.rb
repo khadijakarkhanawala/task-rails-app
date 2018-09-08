@@ -18,4 +18,27 @@ class Author
 
   ##Relationships
   has_many :books
+
+  ##Methods
+  def profile_pic_url
+    {
+      thumb: profile_pic.url(:thumb)
+    }
+  end
+
+  def self.get_search_data search_term
+    or_cond = [];  
+  
+    or_cond << {:name => /#{search_term}.*/i};
+    or_cond << {:author_bio => /#{search_term}.*/i};
+  
+    all_cond = {"$or" => or_cond}
+        
+    authors = Author.where(all_cond).as_json(only: [:_id, :name, :author_bio, :academics, :awards], 
+      methods: [:profile_pic_url], include: {
+        books: {only: [:name, :short_description], include: {reviews: {except: [:_id, :book_id, :created_at, :updated_at]}}}
+      })
+
+    return authors
+  end
 end
