@@ -12,7 +12,7 @@ class Author
     :styles => {
       :thumb    => ['100x100']
     },
-    :default_url => "missing-image.png"
+    :default_url => "images/image_5.jpg"
 
   validates_attachment_content_type :profile_pic, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
 

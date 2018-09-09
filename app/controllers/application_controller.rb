@@ -16,16 +16,25 @@ class ApplicationController < ActionController::API
     }
   end
 
+  def render_unauthorized message
+    render :json => {
+      code: 401,
+      error: message
+    }, status: :unauthorized
+  end
+
   protected
 
     def authenticate_request!
       unless user_id_in_token?
-        render json: { errors: ['Not Authenticated'] }, status: :unauthorized
+        render_unauthorized('Not Authenticated')
         return
       end
       @current_user = User.find(BSON::ObjectId.from_string(auth_token[:user_id]))
     rescue JWT::VerificationError, JWT::DecodeError
-      render json: { errors: ['Not Authenticated'] }, status: :unauthorized
+      render_unauthorized('Not Authenticated')
+    rescue Exception
+      render_unauthorized('Not Authorized')
     end
 
   private
@@ -41,6 +50,6 @@ class ApplicationController < ActionController::API
     end
 
     def user_id_in_token?
-      http_token && auth_token && auth_token[:user_id].to_i
+      http_token && auth_token && auth_token[:user_id].to_s
     end
 end

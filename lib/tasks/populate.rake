@@ -16,7 +16,7 @@ namespace :db do
         a.author_bio = Faker::Lorem.paragraph(rand(1..2), true, rand(1..6))
         a.academics = Faker::Lorem.sentence(rand(1..3))
         a.awards = Faker::Lorem.sentence(rand(1..3))
-        a.profile_pic = File.open(File.join(Rails.root, "public", "missing-image.png"))
+        a.profile_pic = File.open(File.join(Rails.root, "public", "images", "image_#{rand(1..5)}.jpg"))
       end
     end
 
