@@ -11,4 +11,9 @@ class Review
 
   ##Relationships
   belongs_to :book
+
+  ##Methods
+  def id_string
+    id.to_s
+  end
 end

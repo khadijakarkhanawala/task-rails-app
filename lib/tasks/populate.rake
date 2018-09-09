@@ -3,11 +3,13 @@ namespace :db do
   task :populate => :environment do 
     require 'faker'
 
+    ##Reset database 
     Rake::Task['db:reset'].invoke
-    genres_arr = ["Science Fiction", "Satire", "Drama", "Action and Adventure", "Romance", "Mystery", "Horror", "Self Help", "Fantasy"]
     
+    ##Create a User for authentication
+    User.create(email:'test_user@amura.com', password:'123456789', password_confirmation:'123456789')
 
-    # Create 15 posts
+    # Create 100 Authors
     100.times do
       Author.create do |a|
         a.name = Faker::Name.unique.name
@@ -18,12 +20,16 @@ namespace :db do
       end
     end
 
+    ##Genre of books to be selected from given array
+    genres_arr = ["Science Fiction", "Satire", "Drama", "Action and Adventure", "Romance", "Mystery", "Horror", "Self Help", "Fantasy"]
+
+    ##Get all authors and create 5 books for each author to create 500 books in total
     authors = Author.all
     authors.each do |author|
       5.times do
         Book.create do |b|
           b.author_id = author.id
-          b.name = Faker::Book.unique.title
+          b.name = Faker::Book.title
           b.short_description = Faker::Lorem.sentence(rand(3..5), true)
           b.long_description = Faker::Lorem.paragraph(rand(1..5), true, rand(1..4))
           b.publication_date = Faker::Time.between(DateTime.now - 1, DateTime.now)
@@ -43,6 +49,8 @@ namespace :db do
       end
     end
 
+    ##Create reviews for books
+    ##Get 50 books ordered by name in descending order and create 2 reviews for each to get total 100 reviews
     books1 = Book.order_by(["name", "desc"]).limit(50)
 
     books1.each do |book|
@@ -57,6 +65,7 @@ namespace :db do
       end
     end
 
+    ##Get 150 books ordered by creation time in descending order and create 1 reviews for each to get 150 more reviews
     books2 = Book.order_by(["created_at", "desc"]).limit(150)
 
     books2.each do |book|

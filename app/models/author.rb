@@ -26,6 +26,10 @@ class Author
     }
   end
 
+  def id_string
+    id.to_s
+  end
+
   def self.get_search_data search_term
     or_cond = [];  
   
@@ -34,9 +38,11 @@ class Author
   
     all_cond = {"$or" => or_cond}
         
-    authors = Author.where(all_cond).as_json(only: [:_id, :name, :author_bio, :academics, :awards], 
-      methods: [:profile_pic_url], include: {
-        books: {only: [:name, :short_description], include: {reviews: {except: [:_id, :book_id, :created_at, :updated_at]}}}
+    authors = Author.where(all_cond).as_json(only: [:name, :author_bio, :academics, :awards], 
+      methods: [:profile_pic_url, :id_string], include: {
+        books: {only: [:name, :short_description, :genre], methods: [:published_date, :id_string], include: {
+          reviews: {except: [:_id, :book_id, :created_at, :updated_at], methods: [:id_string]}
+        }}
       })
 
     return authors

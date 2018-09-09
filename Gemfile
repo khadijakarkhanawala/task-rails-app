@@ -18,6 +18,9 @@ gem 'faker', '~> 1.9.1'
 
 gem 'mongoid-paperclip', :require => 'mongoid_paperclip'
 
+gem 'devise'
+gem 'jwt'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production

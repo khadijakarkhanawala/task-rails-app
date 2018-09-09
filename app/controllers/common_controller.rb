@@ -1,4 +1,5 @@
 class CommonController < ApplicationController
+  before_action :authenticate_request!
 
   # POST /search
   def search
