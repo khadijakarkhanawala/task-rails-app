@@ -15,8 +15,14 @@ class Book
   belongs_to :author
   has_many :reviews
 
-  ##Methods
+  ##Validations
+  validates_associated :reviews
+  validates :name, :short_description, :long_description, :publication_date, :genre, :chapter_index, :presence => true
+  validates :long_description, :length => { :minimum  => 50, :maximum => 100,
+    :too_short => "must have at least %{count} words",
+    :too_long => "%{count} characters is the maximum allowed" }
 
+  ##Methods
   def published_date
     publication_date.strftime("%d %B, %Y")
   end

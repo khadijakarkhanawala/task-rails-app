@@ -19,6 +19,11 @@ class Author
   ##Relationships
   has_many :books
 
+  ##Validations
+  validates_associated :books
+  validates :name, :author_bio, :academics, :awards, :presence => true
+  validates :name, :uniqueness => true
+
   ##Methods
   def profile_pic_url
     {

@@ -31,7 +31,7 @@ namespace :db do
           b.author_id = author.id
           b.name = Faker::Book.title
           b.short_description = Faker::Lorem.sentence(rand(3..5), true)
-          b.long_description = Faker::Lorem.paragraph(rand(1..5), true, rand(1..4))
+          b.long_description = Faker::Hipster.paragraph_by_chars(rand(50..100))
           b.publication_date = Faker::Time.between(DateTime.now - 1, DateTime.now)
           b.genre = genres_arr.sample(rand(1..3))
           chapter_index = []

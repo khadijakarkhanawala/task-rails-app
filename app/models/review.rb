@@ -12,6 +12,10 @@ class Review
   ##Relationships
   belongs_to :book
 
+  ##Validations
+  validates :reviewer_name, :rating, :presence => true
+  validates :rating, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 5}
+
   ##Methods
   def id_string
     id.to_s
