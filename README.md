@@ -17,8 +17,8 @@
     -H 'Cache-Control: no-cache' \
     -H 'Postman-Token: f994b81e-008f-460f-b8a2-15a3b76238c8' \
     -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' \
-    -F email=test_user@amura.com \
-    -F password=123456789
+    -F email=%{email} \
+    -F password=%{password}
 
 * Search Request cURL
 
