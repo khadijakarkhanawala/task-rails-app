@@ -23,7 +23,7 @@
 * Search Request cURL
 
   `curl -X GET \
-  	'http://localhost:3000/search?search=horror' \
+  	'http://localhost:3000/search?search=%{search_term}' \
     -H 'Authorization: Bearer %{jwt_token}' \
     -H 'Cache-Control: no-cache' \
     -H 'Postman-Token: 8b7aeaab-5173-492b-b8a5-5617d782fd1e'`
